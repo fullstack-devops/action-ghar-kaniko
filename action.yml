@@ -1,0 +1,21 @@
+
+name: "Build container with the kaniko project"
+description: "Useful if your using the fullstack-devops/github-actions-runner"
+inputs:
+  args:
+    description: ""
+    required: true
+    type: string
+  kaniko-executable:
+    description: ""
+    required: false
+    default: /helper-scripts/kaniko-wrapper.sh
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Build container and do not push
+      working-directory: ${{ inputs.src }}
+      shell: bash
+      run: |
+        ${{ inputs.kaniko-executable }} ${{ inputs.args }}
